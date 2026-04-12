@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leaderboard — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body class="dashboard-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Skill<span>Map</span></div>
+    <nav class="sb-nav">
+      <a href="dashboard.html" class="sb-link">📊 Dashboard</a>
+      <a href="upload.html" class="sb-link">📄 Upload Resume</a>
+      <a href="skills.html" class="sb-link">🛠 My Skills</a>
+      <a href="courses.html" class="sb-link">📚 Courses</a>
+      <a href="leaderboard.html" class="sb-link active">🏅 Leaderboard</a>
+      <a href="report.html" class="sb-link">📥 My Report</a>
+    </nav>
+    <div class="sb-bottom">
+      <div class="sb-user" id="sbUser"></div>
+      <button class="sb-logout" onclick="logout()">← Log Out</button>
+    </div>
+  </aside>
+  <main class="dash-main">
+    <header class="dash-header">
+      <button class="sb-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="dash-greeting">🏅 Leaderboard</div>
+    </header>
+    <div class="dash-content">
+      <div class="lb-podium" id="lbPodium"></div>
+      <div class="lb-table-wrap">
+        <table class="lb-table">
+          <thead><tr><th>Rank</th><th>Student</th><th>College</th><th>Skills</th><th>Points</th><th>Level</th></tr></thead>
+          <tbody id="lbBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script src="leaderboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Skill<span>Map</span></div>
+    <nav class="sb-nav">
+      <a href="dashboard.html" class="sb-link active">📊 Dashboard</a>
+      <a href="upload.html" class="sb-link">📄 Upload Resume</a>
+      <a href="skills.html" class="sb-link">🛠 My Skills</a>
+      <a href="courses.html" class="sb-link">📚 Courses</a>
+      <a href="leaderboard.html" class="sb-link">🏅 Leaderboard</a>
+      <a href="report.html" class="sb-link">📥 My Report</a>
+    </nav>
+    <div class="sb-bottom">
+      <div class="sb-user" id="sbUser"></div>
+      <button class="sb-logout" onclick="logout()">← Log Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <!-- TOPBAR -->
+    <header class="dash-header">
+      <button class="sb-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="dash-greeting" id="dashGreeting">Good morning!</div>
+      <div class="dash-header-right">
+        <span class="streak-badge" id="streakBadge">🔥 0d streak</span>
+        <a href="upload.html" class="upload-btn-sm">+ Upload Resume</a>
+      </div>
+    </header>
+
+    <div class="dash-content">
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="sc-icon">🛠</div>
+          <div class="sc-val" id="scSkills">0</div>
+          <div class="sc-label">Skills Tracked</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="sc-icon">🏆</div>
+          <div class="sc-val" id="scPoints">0</div>
+          <div class="sc-label">Total Points</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-icon">📚</div>
+          <div class="sc-val" id="scCourses">0</div>
+          <div class="sc-label">Active Courses</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-icon">🏅</div>
+          <div class="sc-val" id="scRank">#--</div>
+          <div class="sc-label">Leaderboard Rank</div>
+        </div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="charts-row">
+        <div class="chart-card wide">
+          <div class="chart-title">Skill Proficiency Overview</div>
+          <canvas id="skillChart" height="200"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Skill Distribution</div>
+          <canvas id="donutChart" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- SKILL LEVELS + COURSES -->
+      <div class="lower-row">
+        <div class="skills-list-card">
+          <div class="card-header">
+            <div class="chart-title">My Skills</div>
+            <a href="skills.html" class="see-all">View all →</a>
+          </div>
+          <div id="skillsList"></div>
+        </div>
+        <div class="courses-card">
+          <div class="card-header">
+            <div class="chart-title">Course Progress</div>
+            <a href="courses.html" class="see-all">View all →</a>
+          </div>
+          <div id="coursesList"></div>
+        </div>
+      </div>
+
+      <!-- WHAT TO IMPROVE -->
+      <div class="improve-card">
+        <div class="improve-header">
+          <div>
+            <div class="chart-title">🎯 What to Improve Next</div>
+            <p class="improve-sub">AI recommendations based on your skill profile</p>
+          </div>
+          <a href="upload.html" class="upload-btn-sm">Re-analyze Resume</a>
+        </div>
+        <div id="improveList" class="improve-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
