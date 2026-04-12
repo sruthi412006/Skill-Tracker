@@ -1,0 +1,17 @@
+streamlit==1.32.0
+sentence-transformers==2.7.0
+openai==1.30.0
+fastapi==0.110.0
+uvicorn==0.29.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+PyPDF2==3.0.1
+spacy==3.7.4
+python-multipart==0.0.9
+plotly==5.22.0
+pandas==2.2.2
+python-dotenv==1.0.1
+fpdf2==2.7.9
+requests==2.31.0
+numpy==1.26.4
+scikit-learn==1.4.2
