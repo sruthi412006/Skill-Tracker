@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Skill<span>Map</span></div>
+    <nav class="sb-nav">
+      <a href="dashboard.html" class="sb-link active">📊 Dashboard</a>
+      <a href="upload.html" class="sb-link">📄 Upload Resume</a>
+      <a href="skills.html" class="sb-link">🛠 My Skills</a>
+      <a href="courses.html" class="sb-link">📚 Courses</a>
+      <a href="leaderboard.html" class="sb-link">🏅 Leaderboard</a>
+      <a href="report.html" class="sb-link">📥 My Report</a>
+      <a href="profile.html" class="sb-link">👤 Profile</a>
+    </nav>
+    <div class="sb-bottom">
+      <button class="theme-toggle-full" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span></button>
+      <div class="sb-user" id="sbUser"></div>
+      <button class="sb-logout" onclick="logout()">⏻ Log Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    <header class="dash-header">
+      <button class="sb-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="dash-greeting" id="dashGreeting">Good morning!</div>
+      <div class="dash-header-right">
+        <span class="streak-badge" id="streakBadge">🔥 0d streak</span>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme" id="headerThemeBtn">🌙</button>
+        <a href="upload.html" class="upload-btn-sm">+ Upload Resume</a>
+      </div>
+    </header>
+
+    <div class="dash-content">
+      <!-- RESUME STRENGTH BANNER -->
+      <div id="resumeBanner" class="resume-banner" style="display:none">
+        <div class="rb-left">
+          <div class="rb-title">Resume Strength</div>
+          <div class="rb-bar-wrap"><div class="rb-bar-fill" id="rbFill"></div></div>
+          <div class="rb-sub" id="rbSub"></div>
+        </div>
+        <div class="rb-right" id="rbScore"></div>
+      </div>
+
+      <!-- INSIGHT BANNER -->
+      <div id="insightBanner" class="insight-banner" style="display:none">
+        <span id="insightText"></span>
+      </div>
+
+      <!-- STATS ROW -->
+      <div class="stats-row">
+        <div class="stat-card"><div class="sc-icon">🛠</div><div class="sc-val" id="scSkills">0</div><div class="sc-label">Total Skills</div></div>
+        <div class="stat-card accent"><div class="sc-icon">✅</div><div class="sc-val" id="scCompleted">0</div><div class="sc-label">Completed Courses</div></div>
+        <div class="stat-card"><div class="sc-icon">⏳</div><div class="sc-val" id="scOngoing">0</div><div class="sc-label">Ongoing Courses</div></div>
+        <div class="stat-card"><div class="sc-icon">📈</div><div class="sc-val" id="scProgress">0%</div><div class="sc-label">Overall Progress</div></div>
+        <div class="stat-card"><div class="sc-icon">🏅</div><div class="sc-val" id="scRank">#--</div><div class="sc-label">Leaderboard Rank</div></div>
+      </div>
+
+      <!-- SKILL ANALYSIS ROW -->
+      <div class="analysis-row" id="analysisRow" style="display:none">
+        <div class="analysis-card strong"><h4>✔ Strong Skills</h4><div id="strongSkills"></div></div>
+        <div class="analysis-card warn"><h4>⚠ Needs Improvement</h4><div id="warnSkills"></div></div>
+        <div class="analysis-card danger"><h4>❌ Missing / Weak</h4><div id="missingSkills"></div></div>
+      </div>
+
+      <!-- CHARTS ROW -->
+      <div class="charts-row">
+        <div class="chart-card wide"><div class="chart-title">Skill Proficiency Overview</div><canvas id="skillChart" height="200"></canvas></div>
+        <div class="chart-card"><div class="chart-title">Level Distribution</div><canvas id="donutChart" height="200"></canvas></div>
+      </div>
+
+      <!-- ACHIEVEMENTS -->
+      <div class="achievements-section">
+        <div class="chart-title" style="margin-bottom:16px">🎖 Achievements & Badges</div>
+        <div id="achievementsList" class="achievements-list"></div>
+      </div>
+
+      <!-- LOWER ROW -->
+      <div class="lower-row">
+        <div class="skills-list-card">
+          <div class="card-header"><div class="chart-title">Top Skills</div><a href="skills.html" class="see-all">View all →</a></div>
+          <div id="skillsList"></div>
+        </div>
+        <div class="courses-card">
+          <div class="card-header"><div class="chart-title">Course Progress</div><a href="courses.html" class="see-all">View all →</a></div>
+          <div id="coursesList"></div>
+        </div>
+      </div>
+
+      <!-- RECOMMENDATIONS -->
+      <div class="improve-card">
+        <div class="improve-header">
+          <div><div class="chart-title">🎯 Smart Skill Recommendations</div><p class="improve-sub">AI-powered: based on your current skill profile</p></div>
+          <a href="upload.html" class="upload-btn-sm">Re-analyze Resume</a>
+        </div>
+        <div id="improveList" class="improve-grid"></div>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

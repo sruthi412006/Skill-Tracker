@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body class="auth-page">
+  <div class="auth-split">
+    <div class="auth-left signup-left">
+      <a href="index.html" class="auth-logo">Skill<span>Map</span></a>
+      <div class="auth-left-content">
+        <h2>Start your<br/>skill journey.</h2>
+        <p>Upload your resume, discover where you stand, and get a personalized roadmap.</p>
+        <div class="mini-preview">
+          <div class="mp-row"><span>Beginner</span><div class="mp-bar"><div style="width:30%;background:#f59e0b"></div></div></div>
+          <div class="mp-row"><span>Intermediate</span><div class="mp-bar"><div style="width:65%;background:#3b82f6"></div></div></div>
+          <div class="mp-row"><span>Advanced</span><div class="mp-bar"><div style="width:10%;background:#10b981"></div></div></div>
+        </div>
+      </div>
+      <div class="auth-orbs"><div class="orb orb1"></div><div class="orb orb3"></div></div>
+    </div>
+    <div class="auth-right">
+      <button class="theme-toggle-btn float-theme" onclick="toggleTheme()">🌙</button>
+      <div class="auth-form-wrap">
+        <h1>Create Account</h1>
+        <p class="auth-sub">Already have one? <a href="login.html">Log in</a></p>
+        <div id="signupError" class="auth-error" style="display:none"></div>
+        <div id="signupSuccess" class="auth-success" style="display:none">✅ Account created! Redirecting...</div>
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="signupName" placeholder="Arjun Sharma" class="form-input"/></div>
+          <div class="form-group"><label>College *</label><input type="text" id="signupCollege" placeholder="Anna University" class="form-input"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Department *</label>
+            <select id="signupDept" class="form-input">
+              <option value="">Select</option>
+              <option>CSE</option><option>IT</option><option>ECE</option><option>EEE</option>
+              <option>Mechanical</option><option>Civil</option><option>MCA</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Year of Study *</label>
+            <select id="signupYear" class="form-input">
+              <option value="">Select</option>
+              <option>1st Year</option><option>2nd Year</option><option>3rd Year</option>
+              <option>4th Year</option><option>Post Graduate</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Email Address *</label><input type="email" id="signupEmail" placeholder="you@college.edu" class="form-input"/></div>
+        <div class="form-group pass-group">
+          <label>Password * (min 6 chars)</label>
+          <input type="password" id="signupPassword" placeholder="Min 6 characters" class="form-input"/>
+          <span class="show-pass" onclick="togglePass('signupPassword',this)">Show</span>
+        </div>
+        <button class="auth-btn" id="signupBtn" onclick="handleSignup()"><span>Create Account</span></button>
+        <p class="terms-note">By signing up you agree to our <a href="#">Terms of Service</a>.</p>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+  <script src="api.js"></script>
+  <script>
+    async function handleSignup() {
+      const name = document.getElementById('signupName').value.trim();
+      const college = document.getElementById('signupCollege').value.trim();
+      const dept = document.getElementById('signupDept').value;
+      const year = document.getElementById('signupYear').value;
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const errEl = document.getElementById('signupError');
+      const sucEl = document.getElementById('signupSuccess');
+      errEl.style.display = 'none';
+
+      if (!name||!email||!password||!year||!dept) { errEl.textContent='Please fill in all fields.'; errEl.style.display='block'; return; }
+      if (password.length<6) { errEl.textContent='Password must be at least 6 characters.'; errEl.style.display='block'; return; }
+
+      const btn = document.getElementById('signupBtn');
+      btn.textContent = 'Creating...'; btn.disabled = true;
+
+      try {
+        let backendUp = false;
+        try { const r = await fetch('http://localhost:8080/api/leaderboard',{signal:AbortSignal.timeout(2000)}); backendUp=r.ok; } catch{}
+
+        if (backendUp) {
+          const res = await AuthAPI.register({ fullName:name, email, password, college, department:dept, yearOfStudy:year });
+          if (res.success) { sucEl.style.display='block'; setTimeout(()=>window.location.href='upload.html',1000); return; }
+          errEl.textContent = res.message || 'Registration failed'; errEl.style.display='block';
+        } else {
+          // localStorage fallback
+          const users = JSON.parse(localStorage.getItem('skillmap_users') || '[]');
+          if (users.find(u=>u.email===email)) { errEl.textContent='Email already registered.'; errEl.style.display='block'; return; }
+          const newUser = { name, fullName:name, college, dept, department:dept, email, password, year, yearOfStudy:year,
+            joined:new Date().toISOString(), avatar:null, skills:[], courses:[], certificates:[], storedCerts:[],
+            projects:[], streak:0, streakDays:0, totalPoints:100, rank:users.length+4, resumeAnalyzed:false };
+          users.push(newUser);
+          localStorage.setItem('skillmap_users', JSON.stringify(users));
+          localStorage.setItem('skillmap_current', JSON.stringify(newUser));
+          sucEl.style.display='block';
+          setTimeout(()=>window.location.href='upload.html',1000);
+        }
+      } finally { btn.textContent='Create Account'; btn.disabled=false; }
+    }
+  </script>
+</body>
+</html>

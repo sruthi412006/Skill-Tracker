@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Report — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="dashboard-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Skill<span>Map</span></div>
+    <nav class="sb-nav">
+      <a href="dashboard.html" class="sb-link">📊 Dashboard</a>
+      <a href="upload.html" class="sb-link">📄 Upload Resume</a>
+      <a href="skills.html" class="sb-link">🛠 My Skills</a>
+      <a href="courses.html" class="sb-link">📚 Courses</a>
+      <a href="leaderboard.html" class="sb-link">🏅 Leaderboard</a>
+      <a href="report.html" class="sb-link active">📥 My Report</a>
+      <a href="profile.html" class="sb-link">👤 Profile</a>
+    </nav>
+    <div class="sb-bottom">
+      <button class="theme-toggle-full" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span></button>
+      <div class="sb-user" id="sbUser"></div>
+      <button class="sb-logout" onclick="logout()">⏻ Log Out</button>
+    </div>
+  </aside>
+  <main class="dash-main">
+    <header class="dash-header">
+      <button class="sb-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="dash-greeting">Progress Report</div>
+      <div class="dash-header-right">
+        <button class="theme-toggle-btn" onclick="toggleTheme()">🌙</button>
+        <button class="upload-btn-sm" onclick="downloadReport()">📥 Download PDF</button>
+        <button class="upload-btn-sm" style="background:linear-gradient(135deg,var(--accent3),#1a9fb5)" onclick="generateResumePDF()">📄 Generate Resume</button>
+      </div>
+    </header>
+    <div class="dash-content">
+      <div id="reportContent" class="report-content"></div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script src="report.js"></script>
+</body>
+</html>

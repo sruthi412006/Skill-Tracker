@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile — SkillMap</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body class="dashboard-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">Skill<span>Map</span></div>
+    <nav class="sb-nav">
+      <a href="dashboard.html" class="sb-link">📊 Dashboard</a>
+      <a href="upload.html" class="sb-link">📄 Upload Resume</a>
+      <a href="skills.html" class="sb-link">🛠 My Skills</a>
+      <a href="courses.html" class="sb-link">📚 Courses</a>
+      <a href="leaderboard.html" class="sb-link">🏅 Leaderboard</a>
+      <a href="report.html" class="sb-link">📥 My Report</a>
+      <a href="profile.html" class="sb-link active">👤 Profile</a>
+    </nav>
+    <div class="sb-bottom">
+      <button class="theme-toggle-full" onclick="toggleTheme()"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span></button>
+      <div class="sb-user" id="sbUser"></div>
+      <button class="sb-logout" onclick="logout()">⏻ Log Out</button>
+    </div>
+  </aside>
+  <main class="dash-main">
+    <header class="dash-header">
+      <button class="sb-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="dash-greeting">My Profile</div>
+      <div class="dash-header-right">
+        <button class="theme-toggle-btn" onclick="toggleTheme()">🌙</button>
+      </div>
+    </header>
+    <div class="dash-content">
+      <div class="profile-grid">
+
+        <!-- LEFT: Avatar + Summary -->
+        <div class="profile-left">
+          <!-- Avatar Card -->
+          <div class="profile-avatar-card">
+            <div class="profile-avatar-wrap" onclick="document.getElementById('avatarInput').click()">
+              <div class="profile-avatar" id="profileAvatar">AS</div>
+              <div class="avatar-edit-overlay">📷 Change</div>
+              <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="uploadAvatar(event)"/>
+            </div>
+            <div class="profile-name" id="pName">Loading...</div>
+            <div class="profile-college" id="pCollege"></div>
+            <div id="pLevel" class="p-level-badge"></div>
+            <div class="profile-mini-stats" id="pMiniStats"></div>
+          </div>
+
+          <!-- Skills Summary -->
+          <div class="profile-section-card">
+            <h4>🛠 Top 5 Skills</h4>
+            <div id="profileTopSkills"></div>
+          </div>
+
+          <!-- Achievements -->
+          <div class="profile-section-card">
+            <h4>🎖 Achievements</h4>
+            <div id="profileAchievements"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Edit Forms + Settings -->
+        <div class="profile-right">
+          <!-- Notification -->
+          <div id="profileNotif" class="auth-success" style="display:none;margin-bottom:16px"></div>
+          <div id="profileError" class="auth-error" style="display:none;margin-bottom:16px"></div>
+
+          <!-- Personal Details -->
+          <div class="profile-section-card">
+            <div class="pscard-header"><h4>📝 Personal Details</h4><button class="edit-toggle-btn" onclick="toggleEdit('personal')">✏ Edit</button></div>
+            <div id="personalView" class="detail-view">
+              <div class="dv-row"><span>Full Name</span><strong id="dvName"></strong></div>
+              <div class="dv-row"><span>Email</span><strong id="dvEmail"></strong></div>
+              <div class="dv-row"><span>College</span><strong id="dvCollege"></strong></div>
+              <div class="dv-row"><span>Department</span><strong id="dvDept"></strong></div>
+              <div class="dv-row"><span>Year</span><strong id="dvYear"></strong></div>
+              <div class="dv-row"><span>Joined</span><strong id="dvJoined"></strong></div>
+            </div>
+            <div id="personalEdit" style="display:none">
+              <div class="form-row">
+                <div class="form-group"><label>Full Name</label><input type="text" id="editName" class="form-input"/></div>
+                <div class="form-group"><label>College</label><input type="text" id="editCollege" class="form-input"/></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Department</label>
+                  <select id="editDept" class="form-input">
+                    <option>CSE</option><option>IT</option><option>ECE</option><option>EEE</option><option>Mechanical</option><option>Civil</option><option>MCA</option><option>Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Year</label>
+                  <select id="editYear" class="form-input">
+                    <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>Post Graduate</option>
+                  </select>
+                </div>
+              </div>
+              <button class="auth-btn" style="max-width:200px" onclick="savePersonal()">Save Changes</button>
+            </div>
+          </div>
+
+          <!-- Account Details -->
+          <div class="profile-section-card">
+            <div class="pscard-header"><h4>🔐 Account Details</h4></div>
+            <div class="form-group">
+              <label>Update Email</label>
+              <div style="display:flex;gap:10px">
+                <input type="email" id="updateEmail" class="form-input" placeholder="new@email.com"/>
+                <button class="upload-btn-sm" onclick="updateEmail()" style="white-space:nowrap">Update</button>
+              </div>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:20px 0"/>
+            <h5 style="margin-bottom:14px;font-family:'Syne',sans-serif">Change Password</h5>
+            <div class="form-group pass-group">
+              <label>Current Password</label>
+              <input type="password" id="curPass" class="form-input" placeholder="Current password"/>
+              <span class="show-pass" onclick="togglePass('curPass',this)">Show</span>
+            </div>
+            <div class="form-group pass-group">
+              <label>New Password</label>
+              <input type="password" id="newPassA" class="form-input" placeholder="Min 6 characters"/>
+              <span class="show-pass" onclick="togglePass('newPassA',this)">Show</span>
+            </div>
+            <div class="form-group pass-group">
+              <label>Confirm New Password</label>
+              <input type="password" id="newPassB" class="form-input" placeholder="Repeat new password"/>
+              <span class="show-pass" onclick="togglePass('newPassB',this)">Show</span>
+            </div>
+            <button class="auth-btn" style="max-width:220px" onclick="changePassword()">Change Password</button>
+          </div>
+
+          <!-- Settings -->
+          <div class="profile-section-card">
+            <div class="pscard-header"><h4>⚙️ Settings</h4></div>
+            <div class="settings-list">
+              <div class="setting-row">
+                <div><div class="sr-label">Dark / Light Theme</div><div class="sr-sub">Toggle app theme</div></div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="themeSwitch" onchange="toggleTheme()"/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="setting-row">
+                <div><div class="sr-label">Email Notifications</div><div class="sr-sub">Receive progress updates</div></div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="notifSwitch" checked/>
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            <hr style="border:none;border-top:1px solid var(--border);margin:20px 0"/>
+            <div class="danger-zone">
+              <h5 style="color:var(--danger);margin-bottom:10px">⚠ Danger Zone</h5>
+              <button class="danger-btn" onclick="deleteAccount()">🗑 Delete Account</button>
+              <button class="auth-btn" style="max-width:160px;background:var(--bg3);color:var(--text);border:1px solid var(--border)" onclick="logout()">⏻ Log Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="app.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillMap — Student Skill Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+</head>
+<body class="home-page">
+  <nav class="navbar">
+    <div class="nav-logo">Skill<span>Map</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+      <a href="login.html" class="btn-outline">Log In</a>
+      <a href="signup.html" class="btn-solid">Get Started</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle theme" id="mobileThemeBtn">🌙</button>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="login.html">Log In</a>
+    <a href="signup.html">Sign Up</a>
+    <a href="leaderboard.html">Leaderboard</a>
+  </div>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">🎓 AI-Powered Skill Analysis</div>
+      <h1>Track Every Skill.<br/><span class="gradient-text">Unlock Your Potential.</span></h1>
+      <p class="hero-sub">Upload your resume and let SkillMap analyze your technical skills, certifications, and projects — then get a personalized roadmap to level up.</p>
+      <div class="hero-ctas">
+        <a href="signup.html" class="cta-primary">Start Tracking Free →</a>
+        <a href="#how" class="cta-ghost">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>2,400+</span><p>Students</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>18k+</span><p>Skills Tracked</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>94%</span><p>Improvement Rate</p></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="dashboard-preview">
+        <div class="dp-header">
+          <div class="dp-avatar">AS</div>
+          <div><div class="dp-name">Arjun Sharma</div><div class="dp-level">🏆 Intermediate Developer</div></div>
+          <div class="dp-score">82<span>pts</span></div>
+        </div>
+        <div class="dp-skills">
+          <div class="dp-skill-row"><span>Java</span><div class="dp-bar"><div class="dp-fill" style="width:78%;background:var(--accent1)"></div></div><span class="dp-pct">78%</span></div>
+          <div class="dp-skill-row"><span>Web Dev</span><div class="dp-bar"><div class="dp-fill" style="width:65%;background:var(--accent2)"></div></div><span class="dp-pct">65%</span></div>
+          <div class="dp-skill-row"><span>Data Structures</span><div class="dp-bar"><div class="dp-fill" style="width:50%;background:var(--accent3)"></div></div><span class="dp-pct">50%</span></div>
+          <div class="dp-skill-row"><span>MySQL</span><div class="dp-bar"><div class="dp-fill" style="width:40%;background:var(--accent4)"></div></div><span class="dp-pct">40%</span></div>
+        </div>
+        <div class="dp-badges">
+          <span class="badge-chip">📜 3 Certs</span>
+          <span class="badge-chip">💼 5 Projects</span>
+          <span class="badge-chip">🔥 12d Streak</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section" id="how">
+    <div class="section-label">Simple Process</div>
+    <h2>Three Steps to Clarity</h2>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-icon">📄</div><div class="step-num">01</div><h3>Upload Resume</h3><p>Drop your resume and our AI engine extracts skills, projects, certifications instantly.</p></div>
+      <div class="step-connector">→</div>
+      <div class="step-card"><div class="step-icon">🧠</div><div class="step-num">02</div><h3>AI Analysis</h3><p>SkillMap scores each skill 0–100% and classifies Beginner, Intermediate, or Advanced.</p></div>
+      <div class="step-connector">→</div>
+      <div class="step-card"><div class="step-icon">🚀</div><div class="step-num">03</div><h3>Get Roadmap</h3><p>Receive a personalized learning plan, track progress, compete on leaderboard, download report.</p></div>
+    </div>
+  </section>
+
+  <section class="features-section" id="features">
+    <div class="section-label">Everything You Need</div>
+    <h2>Built for Serious Students</h2>
+    <div class="features-grid">
+      <div class="feat-card large"><div class="feat-icon">📊</div><h3>Live Dashboard</h3><p>Visual charts showing skill distribution, course progress, and improvement over time.</p><div class="feat-tag">Interactive Charts</div></div>
+      <div class="feat-card"><div class="feat-icon">🤖</div><h3>AI Resume Scan</h3><p>Automatic extraction of skills, certifications, and projects from your uploaded resume.</p></div>
+      <div class="feat-card"><div class="feat-icon">🏅</div><h3>Leaderboard</h3><p>Compete with peers, earn badges, and see where you rank across all students.</p></div>
+      <div class="feat-card"><div class="feat-icon">📥</div><h3>PDF Reports</h3><p>Download a detailed PDF report of your skill levels and improvement recommendations.</p></div>
+      <div class="feat-card large"><div class="feat-icon">🎯</div><h3>Smart Recommendations</h3><p>AI suggestions on which topics to study next — prioritized by impact and market demand.</p><div class="feat-tag">AI-Powered</div></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Ready to know exactly where you stand?</h2>
+      <p>Join 2,400+ students mapping their technical journey with SkillMap.</p>
+      <a href="signup.html" class="cta-primary large">Create Free Account →</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">Skill<span>Map</span></div>
+    <p>© 2025 SkillMap — Built for students, by students.</p>
+    <div class="footer-links"><a href="login.html">Login</a><a href="signup.html">Sign Up</a><a href="leaderboard.html">Leaderboard</a></div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
